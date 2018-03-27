@@ -15,7 +15,7 @@ class PreferenceImpl : IPreference {
         /**
          * 默认的文件名
          */
-       const val FILE_NAME = "app_shared_preferences"
+        const val FILE_NAME = "app_shared_preferences"
     }
 
 
@@ -68,14 +68,14 @@ class PreferenceImpl : IPreference {
      * @return
      */
     private fun getValue(key: String, type: IPreference.DataType): Any? {
-        when (type) {
-            IPreference.DataType.INTEGER -> return preferences.getInt(key, -1);
-            IPreference.DataType.FLOAT -> return preferences.getFloat(key, -1f);
-            IPreference.DataType.BOOLEAN -> return preferences.getBoolean(key, false);
-            IPreference.DataType.LONG -> return preferences.getLong(key, -1L);
-            IPreference.DataType.STRING -> return preferences.getString(key, null);
-            IPreference.DataType.STRING_SET -> return preferences.getStringSet(key, null);
-            else -> return null;
+        return when (type) {
+            IPreference.DataType.INTEGER -> preferences.getInt(key, -1);
+            IPreference.DataType.FLOAT -> preferences.getFloat(key, -1f);
+            IPreference.DataType.BOOLEAN -> preferences.getBoolean(key, false);
+            IPreference.DataType.LONG -> preferences.getLong(key, -1L);
+            IPreference.DataType.STRING -> preferences.getString(key, null);
+            IPreference.DataType.STRING_SET -> preferences.getStringSet(key, null);
+            else -> null;
         }
     }
 
@@ -98,24 +98,24 @@ class PreferenceImpl : IPreference {
     }
 
     override fun putAll(key: String, list: List<String>, comparator: Comparator<String>) {
-        val set:java.util.TreeSet<String> = java.util.TreeSet<String>(comparator)
+        val set: java.util.TreeSet<String> = java.util.TreeSet<String>(comparator)
         set.addAll(set)
         preferences.edit().putStringSet(key, set).apply()
     }
 
 
     override fun <T> get(key: String, type: IPreference.DataType): T {
-       return getValue(key,type) as T;
+        return getValue(key, type) as T;
 
     }
 
     override fun getAll(): Map<String, *> {
-       return preferences.all;
+        return preferences.all;
     }
 
     override fun getAll(key: String): List<String> {
         val list = ArrayList<String>()
-        val set:HashSet<String> = get(key, IPreference.DataType.STRING_SET)
+        val set: HashSet<String> = get(key, IPreference.DataType.STRING_SET)
         list.addAll(set)
         return list
     }
@@ -145,27 +145,27 @@ class PreferenceImpl : IPreference {
     }
 
     override fun getString(key: String): String {
-        return get(key,IPreference.DataType.STRING);
+        return get(key, IPreference.DataType.STRING);
     }
 
     override fun getFloat(key: String): Float {
-        return get(key,IPreference.DataType.FLOAT);
+        return get(key, IPreference.DataType.FLOAT);
     }
 
     override fun getInteger(key: String): Int {
-        return get(key,IPreference.DataType.INTEGER);
+        return get(key, IPreference.DataType.INTEGER);
     }
 
     override fun getLong(key: String): Long {
-        return get(key,IPreference.DataType.LONG);
+        return get(key, IPreference.DataType.LONG);
     }
 
     override fun getSet(key: String): Set<String> {
-        return get(key,IPreference.DataType.STRING_SET);
+        return get(key, IPreference.DataType.STRING_SET);
     }
 
     override fun getBoolean(key: String): Boolean {
-        return get(key,IPreference.DataType.BOOLEAN);
+        return get(key, IPreference.DataType.BOOLEAN);
     }
 
     /**
